@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- DOM 트리의 특징
+1. DOM 트리의 루트는 document 객체
+2. DOM 객체의 종류는 HTML 태그 종류만큼
+3. HTML 태그 당 DOM 객체가 하나씩 생성
+4. HTML 태그의 포함관계에 따라 DOM 트리에 부모 자식 관계 -->
+
+<!-- HTML 태그
+element 로도 불림
+- 엘리먼트 이름
+- 속성
+- CSS3 스타일
+- 이벤트 리스너
+- 콘텐츠(innerHTML) -->
+
+<!-- DOM 객체는 5개의 요소 구성
+- 프로퍼티(property) : HTML 태그의 속성(atrribute) 반영
+- 메소드(method) : DOM 객체의 멤버 함수로서, HTML 태그 제어 가능
+- 컬렉션(collection) : 자식 DOM 객체들의 주소를 가지는 등 배열과 비슷한 집합적 가능
+- 이벤트 리스너(event listener) : HTML 태그에 작성된 이벤트 리스너 반영, 약 70여 개의 이벤트 리스너를 가질 수 있음
+- CSS3 스타일 : HTML 태그에 설정된 CSS3 스타일 시트 정보를 반영, DOM 객체의 style 프로퍼티를 통해 HTML 태그의 모양 제어 가능-->
+
+<html>
+  <head>
+    <title>HTML DOM 트리</title>
+  </head>
+  <body>
+    <h3>DOM 객체 p의 프로퍼티, 스타일, 이벤트 리스너</h3>
+    <hr />
+    <p
+      id="firstP"
+      style="color: blue; background: yellow"
+      onclick="this.style.color='teal'"
+    >
+      이것은 <span style="color: red"> 문장입니다.</span>
+    </p>
+    <script>
+      var p = document.getElementById('firstP')
+      var text = 'p.id = ' + p.id + '\n'
+      text += 'p.tagName = ' + p.tagName + '\n'
+      text += 'p.innerHTML = ' + p.innerHTML + '\n'
+      text += 'p.style.color = ' + p.style.color + '\n'
+      text += 'p.onclick = ' + p.onclick + '\n'
+      text += 'p.childElementCount = ' + p.childElementCount + '\n'
+      text += '너비 = ' + p.offsetWidth + '\n'
+      text += '높이 = ' + p.offsetHeight + '\n'
+    </script>
+  </body>
+</html>

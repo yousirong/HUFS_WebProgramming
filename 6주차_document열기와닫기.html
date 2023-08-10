@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- document.open()
+- 현재 브라우저에 출력된 HTML 콘텐츠를 지우고 새로운 HTML 페이지 시작.
+즉 document 객체에 담긴 DOM 트리를 지우고 새로 시작 -->
+
+<!-- document.close()
+- 현재 프라우저에 출력된 HTML 페이지 완성
+- 더 이상 document.write() 할 수 없음 -->
+<html>
+  <head>
+    <title>HTML 문서 작성기 만들기</title>
+    <script>
+      var win = null
+      function showHTML() {
+        win = window.open('', 'outWin', 'width=300,height=200')
+
+        var textArea = document.getElementById('srcText')
+        win.document.open()
+        win.document.write(textArea.value)
+        win.document.close()
+      }
+    </script>
+  </head>
+  <body>
+    <h3>HTML 문서 작성기 만들기</h3>
+    <hr />
+    <p>
+      아래에 HTML 문서를 작성하고 버튼을 클릭해 보세요. 새 윈도우에 HTML 문서가
+      출력됩니다.
+    </p>
+    <textarea id="srcText" rows="10" cols="50"></textarea>
+    <br />
+    <br />
+    <button onclick="showHTML()">HTML 문서 출력하기</button>
+  </body>
+</html>

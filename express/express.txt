@@ -1,0 +1,188 @@
+자주 사용하는 미들웨어
+dotenv
+ .env 파일을 읽어서 process.env로 만듦
+    process.env.COOKIE_SECRET에 cookiesecret 값이 할당됨 (키=값 형식)
+    비밀 키들을 소스 코드에 그대로 적어 두면 소스 코드가 유출되었을 때 비밀 키도 값이 유출됨
+    .env 파일에 비밀 키들을 모아두고 .env파일만 잘 관리하면됨
+
+morgan
+    서버로 들어온 요청과 응답을 기록해주는 미들웨어
+        로그의 자세한 정도 선택 가능(dev, tiny, short, common, combined)
+        app.use(morgan('dev'));
+예시) GET / 200 51.267 ms -1539
+순서대로 HTTP 요청 요청 주소 상태코드 응답 속도 - 응답 사이트
+개발 환경에서는 short, dev, 배포환경에서는 common, combined를 애용함.
+
+body-parser
+    요청의 본문을 해석해주는 미들웨어
+        폼 데이터나 AJAX 요처으이 데이터 처리
+        json 미들웨어는 요청본문이 json인 경우 해석, urlencoded 미들웨어는 폼 요청해석
+        put이나 patch, post 요청 시에 req,body에 프런트에서 온 데이터를 넣어 줌
+            app.use(express.json());
+            app.use(express.urlencoded({ extended:false}}));
+
+    버퍼 데이터나 text 데이터일 때는 body-parser를 직접 설치해야함. -> $ npm i body-parser
+    const bodyParser = require('body-parser');
+    app.use(bodyParser.raw());
+    app.use(bodyParser.text());
+
+    Multipart 데이터(이미지, 동영상 등)인 경우는 다른 미들웨어를 사용
+     -multer 패키지
+
+express-session
+    세션 관리용 미들웨어
+        세션 쿠키에 대한 설정(secret: 쿠키 암호화, cookie: 세션 쿠키 옵션)
+        세션 쿠키는 앞에 s%3A가 붙은 후 암호화되어 프런트에 전송됨
+        resave: 요청이 왔을 때 세션에 수정사항이 생기지 않아도 다시 저장 할지 여부
+        saveUninitialized: 세션에 저장할 내역이 없더라도 세션을 저장할지
+
+미들웨어의 특성
+app.use(function (req, res, next) {
+  console.log(req.url, "I'm middleware too!")
+  next()
+})
+
+익스프레스 미들웨어들도 다음과 같이 축약 가능
+순서가 중요
+static 미들웨어에서 파일을 찾으면 next를 호출 안 하므로 json, unlencoded, cookieParser는 실행되지 않음
+app.use(
+    morgan('dev'),
+    express.static('/', path.join(__dirname, 'public')),
+    express.json(),
+    express.urlencoded({ extended: false}),
+    cookieParser(process.env.COOKIE_SECRET),
+);
+
+next
+    next를 호출해야 다음 코드로 넘어감
+        next를 주석 처리하면 응답이 전송되지 않음
+        다음 미들웨어(라우터 미들웨어)로 넘어가지 않기 때문
+        next에 인수로 값을 넣으면 에어 랜들러로 넘어감
+
+미들웨어간 데이터 전달하기
+    req나 res 객체안에 값을 넣어 데이터 전달 가능
+        app.set과의 차이점
+            app.set은 서버 내낸 유지, req, res는 요청 하는 동안만 유지
+        req.body나 req.cookies같은 미들웨어의 데이터와 겹치지 않게 조심
+
+    app.use((req, res, next) => {
+        req.data = '데이터 넣기';
+        next();
+    }, (req, res, next) => {
+        console.log(req.data); // 데이터 받기
+        next();
+    });
+
+미들웨어 확장하기
+    미들웨어 안에 미들웨어를 넣는 방법
+        아래 두 코드는 동일한 역할
+        app.use(morgan('dev'));
+        //또는
+        app.use((req, res, next) => {
+            morgan('dev')(req, res, next);
+        });
+
+        아래처럼 다양하게 활용 가능
+        app.use((req, res, next) => {
+            if(process.env.NODE_ENV === 'production') {
+                morgan('combined')(req, res, next);
+            }else{
+                morgan('dev')(req, res, next);
+            }
+        });
+
+멀티파트 데이터 형식
+    form태그의 enctype이 multipart/form-data인 경우
+        body-parser로는 요청 본문을 해석할 수 없음
+        multer 패키지 필요 $ npm i multer
+
+multer 설정하기
+    multer 함수를 호출
+        storage는 저장할 공간에 대한 정보
+        distStorage는 하드디스크에 업로드 파일을 저장한다는 것
+        destination은 저장할 경로
+        filename은 저장할 파일명(파일명+날짜+확장자 형식)
+        Limits는 파일 개수나 파일 사이즈르 제한 할 수 있음.
+        const multer = require('multer');
+
+        const upload = nulter({
+            storage: multer.diskStorage({
+                destination(req, file,dotenv){
+                    done(null, 'uploads/');
+                },
+                filename(req, file, done) {
+                    const ext= path.extname(file.originalname);
+                    done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+                },
+            }),
+            limits: { filesize: 5 * 1024 *1024},
+        });
+
+multer 미들웨어들
+    single과 none, array, fields 미들웨어 존재
+        single은 하나의 파일을 업로드 할 때, none은 파일은 업로드 하지 않을 때
+        req.file안에 업로드 정보 저장
+    app.post('/upload', upload.single('image'), (req, res) => {
+        console.log(req.file, req.body);
+        res.send('ok');
+    });
+    app.post('/upload', upload.none(), (req, res) => {
+        console.log(req.body);
+        res.send('ok');
+    });
+
+multer 미들웨어들
+    single과 none, array, fields 미들웨어 존재
+        array와 fields는 여러 개의 파일을 업로드 할 때 사용
+        array는 하나의 요청 body 이름 아래 여러 파일이 있는 경우
+        fields는 여러 개의 요청 body 이름 아래 파일이 하나씩 있는 경우
+        두 경우 모두 업로드 된 이미지 정보가 req.files 아래에 존재
+            app.post('/upload', upload.array('many'), (req, res) => {
+        console.log(req.files, req.body);
+        res.send('ok');
+    });
+    app.post('/upload',
+        upload.fields([{ name: 'image1'}, { name: 'imgae2'}]),
+        (req, res) => {
+            console.log(req.files, req.body);
+            res.send('ok');
+        },
+    );
+
+라우터 객체로 라우터 분리하기
+express.Router
+    app.js가 길어지는 것을 막을 수 있음
+        userRouter의 get은 /user와 /가 합쳐져서 GET /user/가 됨
+
+라우터 매개변수
+    :id를 넣으면 req.params.id로 받을 수 있음
+        동적으로 변하는 부분을 라우터 매개변수로 만듦
+            router.get('user/:id', function(req, res) {
+                console.log(req.params, req.query);
+            });
+            router.get('/user/like', function(req, res) {
+                console.log('전혀 실행되지 않습니다.');
+            });
+404 미들웨어간
+    요청과 일치하는 라우터가 없는 경우를 대비해 404라우터 만들기
+        app.use((req, res, next) => {
+            res.status(404).send('Not Found');
+        });
+        이게 없으면 단순히 Cannot GET 주소 라는 문자열이 표시됨.env
+
+라우터 그룹화하기
+    주소는 같지만 메소드가 다른 코드가 있을 때
+        router.get('/abc', (req, res) => {
+            res.send('GET /abc');
+        });
+        router.post('/abc', (req, res) =>{
+            res.send('POST /abc');
+        });
+router.route로 묶음
+    router.route('/abc')
+        .get((req, res) => {
+            res.send('GET /abc');
+        })
+        .post((req, res) => {
+            res.send('POST / abc');
+        });

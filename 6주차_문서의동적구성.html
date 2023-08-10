@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- DOM 객체 동적 생성: document.createElement("태그이름")
+- 태그이름의 DOM 객체 생성
+ex-> var newDIV = document.createElement("div");
+newDIV.setAtrribute("id","myDiv");
+newDIV.style.backgroundColor = "yellow";-->
+<!-- 이 자바스크립 코드는 사실상 오른쪽의 <div> 태그 정보를 가진 DOM 객체 생성
+<div id = "myDiv"
+    style="background-color:yellow">
+    새로 생성된 DIV입니다.
+</div>-->
+
+<!-- DOM 트리에 삽입
+- 부모.appendChild(DOM객체);
+- 부모.insertBefore(DOM객체[기준자식]);
+ex -> 생성한 <div> 태그를 <p "id = p"> 태그의 마지막 자식으로 추가
+    var p = document.getElementById("p");
+        p.appendChild(newDiv); -->
+
+<!-- DOM 객체의 삭제
+- var removedObj = 부모.removeChild(떼어내고자하는자식객체);
+ex -> var newDiv = document.getElementById("myDiv");
+var parent = myDiv.parentElement;
+parent.removeChild(myDiv); // 부모에서 myDiv 객체 삭제 -->
+
+<html>
+  <head>
+    <title>문서의 동적 구성</title>
+    <script>
+      function createDIV() {
+        var obj = document.getElementById('parent')
+        var newDIV = document.createElement('div')
+        newDIV.innerHTML = '새로 생성된 DIV입니다.'
+        newDIV.setAttribute('id', 'myDiv')
+        newDIV.style.backgroundColor = 'yellow'
+        newDIV.onclick = function () {
+          var p = this.parentElement // 부모 HTML 태그 요소
+          p.removeChild(this) // 자신을 부모로부터 제거
+        }
+        obj.appendChild(newDIV)
+      }
+    </script>
+  </head>
+  <body id="parent">
+    <h3>DIV 객체를 동적으로 생성, 삽입, 삭제하는 예제</h3>
+    <hr />
+    <p>
+      DOM 트리에 동적으로 객체를 삽입할 수 있습니다. createElement(),
+      appendChild(), removeChild() 메소드를 이용하여 새로운 객체를 생성, 삽입,
+      삭제하는 예제입니다.
+    </p>
+    <a href="javascript:createDIV()">DIV 생성</a>
+    <p></p>
+    <p></p>
+  </body>
+</html>

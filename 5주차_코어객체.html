@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- 코어 객체
+코어 객체 종류
+Array, Date, String, Math 등
+코어 객체 생성
+-new 키워드 이용
+var today = new Date(); // 시간 정보를 다루는 Date 타입의 객체 생성
+var msg = new String("Hello"); // "Hello" 문자열을 담은 String 타입의 객체 생성-->
+
+<!-- 객체 접근
+객체와 멤버 사이에 점(.) 연산자 이용
+obj.프로퍼티 = 값;  // 객체 obj의 프로퍼티 값 변경
+변수 = obj.프로퍼티; // 객체 obj의 프로퍼티 값 알아내기
+obj.메소드(매개변수 값들); // 객체 obj의 메소드 호출-->
+<html>
+  <head>
+    <title>객체 생성의 활용</title>
+  </head>
+  <body>
+    <h3>객체 생성 및 활용</h3>
+    <hr />
+    <script>
+      // Date 객체 생성
+      var today = new Date()
+
+      // Date 객체의 toLocalString() 메소들 호출
+      document.write('현재 시간 : ' + today.toLocaleString() + '<br>')
+      //String 객체 생성
+      var mystr = new String('자바스크립트 공부하기')
+      document.write('mystr의 내용 : ' + mystr + '<br>')
+      document.wirte('mystr의 길이 : ' + mystr.length + '<br>')
+    </script>
+  </body>
+</html>

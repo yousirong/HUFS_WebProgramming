@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- <script></script> 태그에 자바 스크립트 작성
+ 특징
+1. <head></head>나 <body></body> 내 어디든 가능
+2. 웹 페이지 내에 여러 번 삽입 가능  -->
+
+<html>
+  <head>
+    <title>script 태그에 자바 스크립트 작성</title>
+    <script>
+      function over(obj) {
+        obj.src = 'media/banana.png'
+      }
+      function out(obj) {
+        obj.src = 'media/apple.png'
+      }
+    </script>
+  </head>
+  <body>
+    <h3>마우스를 올려 보세요</h3>
+    <hr />
+    <img
+      src="media/apple.png"
+      alt="이미지"
+      onmouseover="over(this)"
+      onmouseout="out(this)"
+    />
+    <h3>링크의 href에 자바스크립트 작성</h3>
+    <hr />
+    <a href="javascript:alert('클릭하셨어요?')">클릭해보세요</a>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- 시맨틱 태그
+<header>
+    페이지나 섹션의 머리말 표현
+    페이지 제목, 페이지를 소개하는 간단한 설명
+<nav>
+    하이퍼링크들을 모아 놓은 특별한 섹션
+    페이지 내 목차를 만드는 용도
+<section>
+    문서의 장(chaper, section) 혹은 절을 구성하는 역할
+    일반 문서에 여러 장이 있듯이 웹 페이지에 여러 <section> 가능
+    헤딩 태그(<h1>~<h6>)를 사용하여 절 혹은 섹션의 주제 기입
+<article>
+    본문과 연관 있지만, 독립적인 콘텐츠를 담는 영역
+    혹은 보조 기사, 블로그 포스트 , 댓글 등 기타 독립적인 내용
+    <article>에 담는 내용이 많은 경우 여러 <section> 둘 수 있음
+<aside>
+    본문에서 약간 벗어난 노트나 팁
+    신문, 잡지에서 주요 기사 옆 관련 기사, 삽입 어구로 표시된 논평등
+    페이지의 오른쪽이나 왼쪽에 주로 배치
+<footer> -->
+<html>
+  <head>
+    <title>HTML5 문서 구조 시맨틱 태그 사용</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      .header {
+        width: 100%;
+        height: 15%;
+        background: yellow;
+      }
+      .nav {
+        width: 15%;
+        height: 70%;
+        float: left;
+        background: orange;
+      }
+      .section {
+        width: 70%;
+        height: 70%;
+        float: left;
+        background: olivedrab;
+      }
+      .aside {
+        width: 15%;
+        height: 70%;
+        float: left;
+        background: orange;
+      }
+      .footer {
+        width: 100%;
+        height: 15%;
+        clear: both;
+        background: plum;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">header</header>
+    <nav class="nav">nav</nav>
+    <section class="section">section</section>
+    <aside class="aside">aside</aside>
+    <footer class="footer">footer</footer>
+  </body>
+</html>

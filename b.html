@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>중간고사 4번 문제</title>
+    <script>
+      var lis = document.getElementsByTagName('div')
+      function over(lis) {
+        lis.style.backgroundColor = 'yellow'
+        lis.style.color = 'red'
+      }
+
+      function out(lis) {
+        lis.style.backgroundColor = 'white'
+        lis.style.color = 'black'
+      }
+    </script>
+  </head>
+  <body>
+    <h3>웹 프로그래밍 - script</h3>
+    <hr />
+    <div onmouseover="over(this)" onmouseout="out(this)">
+      웹 프로그래밍 중간고사 시험입니다.
+    </div>
+  </body>
+</html>

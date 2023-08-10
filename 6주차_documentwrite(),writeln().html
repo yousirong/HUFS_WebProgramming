@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- HTML 페이지 로딩 과정
+1. 브라우저는 HTML 페이지 로드 전 빈 상태 document 생성
+2. 브라우저는 HTML 페이지를 위에서 아래로 해석
+3. HTML 태그들을 document 객체에 담아간다(DOM 객체 생성).
+4. </html> 태그를 만나면 document 객체를 완성하고 닫는다. -->
+
+<!-- write()
+- document 객체에 담긴 HTML 콘텐츠 마지막에 HTML 태그들을 추가
+- 삽입된 HTML 태그들이 브라우저 화면에 출력 -->
+<!-- writeln()
+-HTML 텍스트에 '\n'을 덧붙여 출력. 한 칸 띄는 효과
+- 한줄을 띄려면 document.write("<br>"); -->
+<html>
+  <head>
+    <title>write()와 writeln() 활용</title>
+  </head>
+  <body>
+    <h3>write()와 writeln() 활용</h3>
+    <hr />
+    <script>
+      document.write('<h3>동물원에 소풍갑니다</h3>')
+      document.write("<p style='color:blue'>날씨가 좋아 ")
+      document.write('소풍갑니다</p>')
+      document.write(2 + 3)
+      document.write('명입니다.<br>') // 다음 줄로 넘어가기
+
+      document.writeln(5) // 다음 줄에 넘어가지 못함
+      document.writeln('명입니다.<br>')
+    </script>
+  </body>
+</html>

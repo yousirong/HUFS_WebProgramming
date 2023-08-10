@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>텍스트 입력 폼</title>
+  </head>
+  <body>
+    <!-- 텍스트 입력 <input type = "text">
+    <input type = "password"><textarea>-->
+    <h3>자기 소개서 작성</h3>
+    <hr />
+    <form>
+      이름 : <input type="text" value="" /><br />
+      암호 : <input type="password" value="" maxlength="4" /><br />
+      자소서 :
+      <textarea cols="20" rows="5">
+							이곳에 자기소개서 작성
+				  </textarea>
+    </form>
+    <!-- <datalist> 데이터 목록을 가진 텍스트 입력창 -->
+    <h3>가보고 싶은 곳</h3>
+    <hr />
+    <form>
+      나라 : <input type="text" list="countries" /><br />
+      <datalist id="countries">
+        <option value="가나"></option>
+        <option value="스위스"></option>
+        <option value="브라질"></option>
+      </datalist>
+
+      보고싶은것 : <input type="text" list="what" /><br />
+      <datalist id="what">
+        <option value="산"></option>
+        <option value="바다"></option>
+        <option value="도시"></option>
+      </datalist>
+    </form>
+    <!-- 텍스트/이미지 버튼 만들기 -->
+    <h3>버튼을 만들자</h3>
+    <hr />
+    <form>
+      검색: <input type="text" size="10" value="" />
+      <input type="button" value="Q1" />
+      <button type="button">Q2</button><br />
+      submit 버튼 : <input type="submit" value="전송1" />
+      <button type="submit">전송2</button><br />
+      reset 버튼 : <input type="reset" value="리셋1" />
+      <button type="reset">리셋2</button><br />
+      이미지버튼 :
+      <input type="image" src="media/button.png" alt="이미지 버튼" />
+      <button type="button">
+        <img src="media/button.png" alt="이미지 버튼" />
+      </button>
+    </form>
+    <!-- 체크박스와 라이오 버튼
+<input type="checkbox"> <input type="radio"> -->
+    <h3>먹고 싶은 것 모두 체크하세요</h3>
+    <hr />
+    <form>
+      짜장면 <input type="checkbox" value="1" /> 짬뽕
+      <input type="checkbox" value="2" checked /> 탕수육
+      <input type="checkbox" value="3" />
+    </form>
+    <h3>먹고 싶은 것 하나만 선택?</h3>
+    <hr />
+    <form>
+      <input type="radio" name="china" value="1" />
+      짜장면<img src="media/jajang.png" /><br />
+      <input type="radio" name="china" value="2" checked />
+      짬뽕<img src="media/jjambbong.png" /><br />
+      <input type="radio" name="china" value="3" />
+      탕수육<img src="media/tangsuyuk.png" />
+    </form>
+    <!-- 콤보 박스 <select> -->
+    <h3>먹고 싶은 음식은?</h3>
+    <hr />
+    <form>
+      <select name="china">
+        <option value="1">짜장면</option>
+        <option value="2" selected>짬뽕</option>
+        <option value="3">탕수육</option>
+      </select>
+    </form>
+    <!-- <label>로 폼요소의 캡션 만들기 -->
+    <h3>로그인 폼</h3>
+    <hr />
+    <form name="fo" method="get">
+      <label>사용자 ID : <input type="text" size="15" value="" /> </label><br />
+      <label for="pass">비밀 번호 : </label>
+      <input id="pass" type="password" size="15" value="" />
+      <input type="submit" value="완료" />
+    </form>
+    <!-- 선택형 요소의 캡션을 <label>로 감싸기 -->
+    <h3>먹고 싶은 것 하나만 선택?(&lt;label&gt;이용)</h3>
+    <hr />
+    <form>
+      <label>
+        <input type="radio" name="china" value="1" />
+        짜장면 <img src="media/jajang.png" /> </label
+      ><br />
+      <label>
+        <input type="radio" name="china" value="2" checked />
+        짬뽕 <img src="media/jjambbong.png" /> </label
+      ><br />
+      <label>
+        <input type="radio" name="china" value="3" />
+        탕수육 <img src="media/tangsuyuk.png" />
+      </label>
+    </form>
+  </body>
+</html>
